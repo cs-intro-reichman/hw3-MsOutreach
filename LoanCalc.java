@@ -28,8 +28,14 @@ public class LoanCalc {
 	// Computes the ending balance of a loan, given the loan amount, the periodical
 	// interest rate (as a percentage), the number of periods (n), and the periodical payment.
 	private static double endBalance(double loan, double rate, int n, double payment) {	
+		double balance = loan;
+		for (int i=1; i<=n; i++) {
+			balance = (balance - payment)  * (1+rate / 100);
+			 // Adjust payment to pay off loan in n periods
+
+		}
 		// Replace the following statement with your code
-		return 0;
+		return balance;
 	}
 	
 	// Uses sequential search to compute an approximation of the periodical payment
@@ -38,8 +44,21 @@ public class LoanCalc {
 	// the number of periods (n), and epsilon, the approximation's accuracy
 	// Side effect: modifies the class variable iterationCounter.
     public static double bruteForceSolver(double loan, double rate, int n, double epsilon) {
+		iterationCounter = 0;
+		double g = loan/n; // initial guess
+
+		double finalValue = endBalance(loan, rate, n, g);
+	
+		while (finalValue > 0)
+		{
+			g += epsilon;
+			iterationCounter ++;
+
+			finalValue = endBalance(loan, rate, n, g);
+			
+		}
 		// Replace the following statement with your code
-		return 0;
+		return g;
     }
     
     // Uses bisection search to compute an approximation of the periodical payment 
@@ -48,7 +67,26 @@ public class LoanCalc {
 	// the number of periods (n), and epsilon, the approximation's accuracy
 	// Side effect: modifies the class variable iterationCounter.
     public static double bisectionSolver(double loan, double rate, int n, double epsilon) {  
+
+		double low = 0;
+		double high = loan;
+		double g = (low + high) / 2.0;
+		iterationCounter = 0;
+
+		while (high-low>epsilon) {
+			iterationCounter ++;
+			double finalValue = endBalance(loan, rate, n, g);
+			double finalValueLow = endBalance(loan, rate, n, low);
+
+			if (finalValueLow  * finalValue < 0) {
+				high = g;
+			} else {
+				low = g;
+			}
+			g = (low + high) / 2.0;
+		}
+
         // Replace the following statement with your code
-		return 0;
+		return g;
     }
 }
