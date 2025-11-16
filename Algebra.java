@@ -25,43 +25,149 @@ public class Algebra {
 
 	// Returns x1 + x2
 	public static int plus(int x1, int x2) {
+		
+		if (x2 < 0) {
+			for (int i=0; i>x2; i--) {  
+			x1--;
+		    }
+		    return x1;
+		}
+		else 
+		for (int i=0; i<x2; i++) {  
+			x1++;
+		}
 		// Replace the following statement with your code
-		return 0;
+		return x1;
 	}
 
 	// Returns x1 - x2
 	public static int minus(int x1, int x2) {
+		if (x2 < 0) {
+			for (int i=0; i>x2; i--) {  
+			x1++;
+		    }
+		    return x1;
+		}
+		else
+		for (int i=0; i<x2; i++) {
+			x1--;
+		}
 		// Replace the following statement with your code
-		return 0;
+		return x1;
 	}
 
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
+		if (x2 < 0) {
+			int result = 0;
+			for (int i=0; i>x2; i--) {  
+			result = minus(result, x1);
+		    }
+		    return result;
+		}
+		else {
+			int result = 0;
+			for (int i=0; i<x2; i++) {  
+			result = plus(result, x1);
+		    }
+		    return result;
+		}
 		// Replace the following statement with your code
-		return 0;
+		
 	}
 
 	// Returns x^n (for n >= 0)
 	public static int pow(int x, int n) {
+		if (n == 0) {
+			return 1;
+		}
+		int result = x;
+		for (int i=1; i<n; i++) {
+			result = times(result, x);
+		}
 		// Replace the following statement with your code
-		return 0;
+		return result;
 	}
 
 	// Returns the integer part of x1 / x2 
 	public static int div(int x1, int x2) {
+		if (x2 == 0) {
+			
+			return 0 ;
+		}
+		else if (x1 == 0) {
+			return 0;
+		}
+		else if (x1 < 0 && x2 > 0) {
+			int quotient = 0;
+			int remainder = times(x1, -1);
+			while (remainder >= x2) {
+				remainder = minus(remainder, x2);
+				quotient = plus(quotient, 1);
+			}
+			return minus(0, quotient);
+		}
+
+		else if (x1 < 0 && x2 < 0) {
+			int quotient = 0;
+			int divider = times(x1,-1);
+			int devisor = times(x2,-1);
+
+			while (divider >= devisor) {
+				divider = minus(divider, devisor);
+				quotient = plus(quotient, 1);
+			
+			}
+			return quotient;
+		} 
+		else if (x1 < 0 || x2 < 0) {
+			int quotient = 0;
+			int remainder = Math.abs(x1);
+			int divisor = Math.abs(x2);
+			while (remainder >= divisor) {
+				remainder = minus(remainder, divisor);
+				quotient = plus(quotient, 1);
+			}
+			return minus(0, quotient);
+		} 
+		else {
+			int quotient = 0;
+			int remainder = x1;
+			while (remainder >= x2) {
+				remainder = minus(remainder, x2);
+				quotient = plus(quotient, 1);
+			}
+			return quotient;
+		}
+		
 		// Replace the following statement with your code
-		return 0;
 	}
 
 	// Returns x1 % x2
 	public static int mod(int x1, int x2) {
+		if (x2 == 0) {
+			return 0;
+		}
+		else {
+			int remainder = x1;
+			while (remainder >= x2) {
+				remainder = minus(remainder, x2);
+			}
+			return remainder;
+		}
 		// Replace the following statement with your code
-		return 0;
+		
 	}	
 
 	// Returns the integer part of sqrt(x) 
 	public static int sqrt(int x) {
+		int x1 = 0;
+		while (times(x1, x1) <= x) {
+			x1++;
+		}
+		x1 = minus(x1, 1);	
+
 		// Replace the following statement with your code
-		return 0;
+		return x1;
 	}	  	  
 }
