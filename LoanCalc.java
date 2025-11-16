@@ -48,11 +48,14 @@ public class LoanCalc {
 		double g = loan/n; // initial guess
 
 		double finalValue = endBalance(loan, rate, n, g);
+	
 		while (finalValue > 0)
 		{
-			g = g + epsilon;
-			finalValue = endBalance(loan, rate, n, g);
+			g += epsilon;
 			iterationCounter ++;
+
+			finalValue = endBalance(loan, rate, n, g);
+			
 		}
 		// Replace the following statement with your code
 		return g;
